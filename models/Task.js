@@ -1,4 +1,4 @@
-const {isAfter} = require('date-fns');
+const { isAfter } = require('date-fns');
 const mongoose = require('mongoose');
 const { contentSchema, emailSchema } = require('../utils/validationSchemas');
 const { Schema } = mongoose;
@@ -13,9 +13,8 @@ const taskSchema = new Schema({
     },
   },
   isDone: { type: Boolean, default: false },
-  createdAt: { type: Date, default: Date.now },
   deadLine: {
-    type:Date,  
+    type: Date,
     validate: { validator: (value) => isAfter(value, Date.now()) },
   },
   owner: {
@@ -27,9 +26,15 @@ const taskSchema = new Schema({
     },
     raiting: {
       type: Number,
-      validate: { validator: (value) => value > 0 && value <= 10 },
+      min: 1,
+      max: 5,
+      default: 1
     },
   },
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
+},{
+  versionKey: false,
+  timestamps: true
 });
 const Task = mongoose.model('Task', taskSchema);
 

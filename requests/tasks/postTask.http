@@ -2,11 +2,11 @@ POST http://localhost:3000/tasks HTTP/1.1
 Content-Type: application/json
 
 {
-  "content": "new task 6",
+  "content": "new task 3",
   "deadLine": "2023-12-13",
   "owner": {
-    "name": "Fred",
-    "email": "fred@gmail.com",
-    "raiting": 5
+    "name": "Alex",
+    "email": "alex@gmail.com",
+    "raiting": 3
   }
 }
