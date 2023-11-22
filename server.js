@@ -1,10 +1,10 @@
+require('dotenv').config();
 const http = require('http');
 const mongoose = require('mongoose');
 const app = require('./app');
-const { DOMAIN, MONGO_PORT, MONGO_DB } = require('./constants');
 
 mongoose
-  .connect(`mongodb://${DOMAIN}:${MONGO_PORT}/${MONGO_DB}`)
+  .connect(process.env.DB_MONGO)
   .catch((error) => console.log(error));
 
 const server = http.createServer(app);
