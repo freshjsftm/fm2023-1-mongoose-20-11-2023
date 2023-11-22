@@ -22,6 +22,11 @@ app
   .all(checkTask)
   .post(CommentController.createComment);
 
+app
+  .route('/tasks/:idTask/comments/:idComment')
+  .all(checkTask)
+  .delete(CommentController.deleteComment);  
+
 app.use((err, req, res, next) => {
   res.status(err.status).send(err.message);
 });

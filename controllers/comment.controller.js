@@ -22,3 +22,24 @@ module.exports.createComment = async (req, res, next) => {
     next(error);
   }
 };
+
+module.exports.deleteComment = async (req, res, next) => {
+  try {
+    const {
+      params: { idTask, idComment },
+      taskInstance,
+    } = req;
+
+    const updateComments = taskInstance.comments.filter(
+      (comment) => comment._id !== idComment
+    );
+
+    await Task.findByIdAndUpdate(idTask, { comments: updateComments });
+
+    const comment = await Comment.findByIdAndDelete(idComment);
+
+    res.status(200).send({ data: comment });
+  } catch (error) {
+    next(error);
+  }
+};
