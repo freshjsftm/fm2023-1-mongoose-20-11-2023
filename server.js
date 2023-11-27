@@ -3,9 +3,10 @@ const http = require('http');
 const mongoose = require('mongoose');
 const app = require('./app');
 
-mongoose
-  .connect(process.env.DB_MONGO)
-  .catch((error) => console.log(error));
+mongoose.connect(process.env.DB_MONGO).catch((error) => {
+  console.log(error);
+  process.exit(1);
+});
 
 const server = http.createServer(app);
 const port = process.env.PORT || 3000;
