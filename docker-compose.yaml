@@ -1,0 +1,40 @@
+services:
+  server-app:
+    build: 
+      context: ./
+      dockerfile: Dockerfile-dev
+    ports:
+      - "3005:3000"
+    volumes:
+      - ./:/server:ro  
+    depends_on:
+      - db-mongo
+    networks: 
+      - my-bridge 
+    restart: on-failure   
+
+  db-mongo:
+    image: mongo:7.0.3
+    volumes: 
+      - /home/olena/Documents/fm_backup_mongo:/data/db
+    networks: 
+      - my-bridge 
+    restart: always  
+
+
+  # db-postgres:
+  #   image: postgres:16.0.1
+  #   ports:
+  #     - "5432:5432"
+  #   environment:  
+  #     - POSTGRES_PASSWORD=test 
+  #     - POSTGRES_USER=test 
+  #     - POSTGRES_DB="docker_test"  
+  #   volumes: 
+  #     - /home/olena/Documents/fm_backup:/var/lib/postgresql/data 
+  #   networks: 
+  #     - my-bridge    
+
+networks:
+  my-bridge: 
+
